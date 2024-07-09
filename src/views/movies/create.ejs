@@ -1,0 +1,156 @@
+<div class="contain">
+    <form action="/movies" method="POST">
+      <h1>Crear Reseña</h1>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label for="nombre">Nombre:</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            class="form-control"
+            placeholder="Ingrese el nombre de la película"
+            required
+          />
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="genero">Género:</label>
+          <input
+            type="text"
+            id="genero"
+            name="genero"
+            class="form-control"
+            placeholder="Ingrese el género de la película"
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label for="fecha_estreno">Fecha de Estreno:</label>
+          <input
+            type="date"
+            id="fecha_estreno"
+            name="fecha_estreno"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="director_id">Director:</label>
+          <select id="director_id" name="director_id" class="form-control" required>
+            <option value="0">Seleccione director</option>
+            <% directores.forEach(director => { %>
+            <option value="<%= director.id %>">
+              <%= director.nombres %> <%= director.apellidos %>
+            </option>
+            <% }); %>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label for="vista">Vista:</label>
+          <select id="vista" name="vista" class="form-control" required>
+            <option value="true">Sí</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="calificacion">Calificación:</label>
+          <input
+            type="number"
+            id="calificacion"
+            name="calificacion"
+            class="form-control"
+            placeholder="Ingrese la calificación de la película"
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="critica">Crítica:</label>
+          <textarea
+            id="critica"
+            name="critica"
+            class="form-control"
+            rows="3"
+            placeholder="Ingrese la crítica de la película"
+          ></textarea>
+        </div>
+      </div>
+      <div id="btnGuardar" class="text-center">
+        <button type="submit" class="btn btn-primary">Guardar Película</button>
+      </div>
+    </form>
+  </div>
+  
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .contain {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+  
+    form {
+      width: 60%;
+      max-width: 600px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+  
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+  
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  
+    #btnGuardar {
+      margin-top: 20px;
+    }
+  
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  
