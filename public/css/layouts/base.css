@@ -1,0 +1,13 @@
+
+  body {
+    background-color: #080f28;
+    width: 98%;
+    font-family: "Barlow Condensed", sans-serif;
+    font-family: "Kalam", cursive;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  dialog{
+    border-radius: 10px;
+    border-color:#C7C8D1 ;
+  }
