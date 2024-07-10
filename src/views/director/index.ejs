@@ -1,0 +1,167 @@
+<div class="container mt-5">
+  <h1>Lista de Directores</h1>
+  <a href="director/create">
+    <button class="btn btn-primary mt-3 mb-3">CREAR DIRECTOR</button>
+  </a>
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>ID</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Cantidad de Películas</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(director => { %>
+      <tr>
+        <td><%= director.id %></td>
+        <td><%= director.nombres %></td>
+        <td><%= director.apellidos %></td>
+        <td><%= director.fecha_nacimiento %></td>
+        <td><%= director.cantidad_peliculas %></td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            onclick="editarDirector('<%= director.id %>')"
+          >
+            Editar
+          </button>
+          <button
+            type="button"
+            onclick="abrirConfirmacionEliminar('<%= director.id %>','<%= director.nombres %>')"
+            class="btn btn-danger btn-sm"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+<div id="overlay" class="overlay"></div>
+<dialog id="confirmDeleteDialog">
+  <form method="dialog">
+    <h5>Confirmar Eliminación</h5>
+    <p id="mensajeDialog"></p>
+    <menu>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        id="cancelDelete"
+        onclick="cancelDelete()"
+        value="cancel"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="btn btn-danger"
+        id="confirmDeleteButton"
+        value="default"
+      >
+        Eliminar
+      </button>
+    </menu>
+  </form>
+</dialog>
+<dialog id="confirmacionEliminar">
+  <h5>Director eliminado!</h5>
+  <p>El director ha sido eliminada correctamente.</p>
+  <button onclick="cerrarConfirmacionEliminar()">Cerrar</button>
+</dialog>
+<dialog id="noEliminar">
+  <h5 style="color: #d84837">No se puede eliminar el director</h5>
+  <p style="color: #d84837">TIENE PELICULAS ASOCIADAS.</p>
+  <button onclick="cerrarConfirmacionEliminar2()">Cerrar</button>
+</dialog>
+<style>
+  h1 {
+    color: #fff;
+    font-weight: bold;
+  }
+</style>
+
+<script>
+  function editarDirector(id) {
+    window.location.href = `/director/edit/${id}`;
+  }
+
+  function abrirConfirmacionEliminar(id, nombre) {
+    idToDelete = id;
+    const mensaje = document.getElementById("mensajeDialog");
+    const confirmDeleteDialog = document.getElementById("confirmDeleteDialog");
+    const overlay = document.getElementById("overlay");
+    overlay.style.display = "block";
+    document.body.classList.add("scroll-disabled");
+    confirmDeleteDialog.showModal();
+    mensaje.innerHTML = "";
+    mensaje.innerHTML = `¿Está seguro que desea eliminar a ${nombre}?`;
+    confirmDeleteDialog.addEventListener("close", function () {
+      if (confirmDeleteDialog.returnValue === "default") {
+        eliminarDirector(idToDelete);
+      }
+    });
+  }
+
+  async function eliminarDirector(id) {
+    try {
+      const response = await fetch(`/director/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const confirmacionEliminar = document.getElementById("noEliminar");
+        confirmacionEliminar.showModal();
+        return;
+      }
+
+      const data = await response.text();
+      const confirmacionEliminar = document.getElementById(
+        "confirmacionEliminar"
+      );
+      confirmacionEliminar.showModal();
+    } catch (error) {
+      console.error("Error al eliminar la tarea:", error);
+    }
+  }
+
+  document
+    .getElementById("cancelDelete")
+    .addEventListener("click", async () => {
+      cancelDelete();
+    });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      const confirmDeleteDialog = document.getElementById(
+        "confirmDeleteDialog"
+      );
+      if (confirmDeleteDialog.open) {
+        cancelDelete();
+      }
+    }
+  });
+  function cerrarConfirmacionEliminar() {
+    const confirmacionEliminar = document.getElementById(
+      "confirmacionEliminar"
+    );
+    confirmacionEliminar.close();
+    location.reload();
+  }
+  function cerrarConfirmacionEliminar2() {
+    const confirmacionEliminar = document.getElementById("noEliminar");
+    confirmacionEliminar.close();
+    location.reload();
+  }
+  function cancelDelete() {
+    const overlay = document.getElementById("overlay");
+    overlay.style.display = "none";
+    document.body.classList.remove("scroll-disabled");
+    document.getElementById("confirmDeleteDialog").close();
+  }
+</script>

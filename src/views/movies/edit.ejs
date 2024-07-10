@@ -1,6 +1,6 @@
-<div class="container">
-    <h1>Editar Película</h1>
+<div class="container">    
     <form>
+      <h1>Editar Película</h1>
       <div class="row">
         <div class="col-md-6 form-group">
           <label for="nombre">Nombre:</label>
@@ -44,7 +44,7 @@
       <div class="row">
         <div class="col-md-12 form-group">
           <label for="critica">Crítica:</label>
-          <textarea id="critica" name="critica" class="form-control" rows="3" required><%= movie.critica %></textarea>
+          <textarea id="critica" name="critica" class="form-control" rows="2" required><%= movie.critica %></textarea>
         </div>
       </div>
       <div class="row justify-content-center">
@@ -56,34 +56,22 @@
   </div>
   
   <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    
   
-    .contain {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      width: 100%;
-    }
+  .container {
+    margin-top: 2vh;
+  width: 60%;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
   
-    form {
-      width: 60%;
-      max-width: 600px;
-      padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
+   
   
     h1 {
       text-align: center;
-      color: #fff;
+      color: #333;
       margin-bottom: 20px;
     }
   

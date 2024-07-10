@@ -1,0 +1,148 @@
+<div class="contain">
+    <form action="/director" method="POST">
+      
+        <h1>Crear Director</h1>
+      
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label for="nombres">Nombres:</label>
+          <input
+            type="text"
+            id="nombres"
+            name="nombres"
+            class="form-control"
+            placeholder="Ingrese los nombres del director"
+            required
+          />
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="apellidos">Apellidos:</label>
+          <input
+            type="text"
+            id="apellidos"
+            name="apellidos"
+            class="form-control"
+            placeholder="Ingrese los apellidos del director"
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+          <input
+            type="date"
+            id="fecha_nacimiento"
+            name="fecha_nacimiento"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="cantidad_peliculas">Cantidad de Películas:</label>
+          <input
+            min="0"
+            type="number"
+            id="cantidad_peliculas"
+            name="cantidad_peliculas"
+            class="form-control"
+            placeholder="Ingrese la cantidad de películas"
+            required
+          />
+        </div>
+      </div>
+      <div id="btnGuardar" class="text-center">
+        <button type="submit" class="btn btn-primary">Guardar Director</button>
+      </div>
+    </form>
+  </div>
+  <dialog id="errorDialog">
+    <p id="mensajeErrorDialog">Todos los campos son obligatorios.</p>
+    <button type="button" id="closeErrorDialog">Cerrar</button>
+  </dialog>
+  
+  <style>
+    .contain {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      margin-top: 3vh;
+    }
+  
+    form {
+      width: 60%;
+      max-width: 600px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+  
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+    }
+  
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+  
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  
+    #btnGuardar {
+      margin-top: 20px;
+    }
+  
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  
+  <script>
+    document
+      .querySelector('form')
+      .addEventListener('submit', function(event) {
+        const nombres = document.getElementById('nombres').value;
+        const apellidos = document.getElementById('apellidos').value;
+        const fecha_nacimiento = document.getElementById('fecha_nacimiento').value;
+        const cantidad_peliculas = document.getElementById('cantidad_peliculas').value;
+  
+        if (!nombres || !apellidos || !fecha_nacimiento || !cantidad_peliculas) {
+          event.preventDefault();
+          const errorDialog = document.getElementById('errorDialog');
+          errorDialog.showModal();
+        }
+      });
+  
+    document.getElementById('closeErrorDialog').addEventListener('click', () => {
+      const errorDialog = document.getElementById('errorDialog');
+      errorDialog.close();
+    });
+  </script>
+  
